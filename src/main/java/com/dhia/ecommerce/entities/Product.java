@@ -8,7 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
@@ -19,8 +24,11 @@ public class Product {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@ManyToOne
+	@JoinColumn(name="category_id",nullable=false)
+	private ProductCategory category;
 	@Column(name="sku")
 	private String sku;
 	@Column(name="name")
@@ -36,8 +44,10 @@ public class Product {
 	@Column(name="units_in_stock")
 	private int unitsInStock;
 	@Column(name="date_created")
+	@CreationTimestamp
 	private Date dateCreated;
 	@Column(name="last_updated")
+	@UpdateTimestamp
 	private Date lastUpdated;
 	
 	
